@@ -113,7 +113,6 @@
 
         /* Sections */
         section {
-            /* UPDATED: Reduced vertical padding */
             padding: 60px 0 30px; 
             opacity: 0;
             transform: translateY(20px);
@@ -533,7 +532,6 @@
         /* Fancy Footer Styles */
         .footer-section {
             position: relative;
-            /* UPDATED: Reduced margins and padding */
             margin-top: 60px;
             padding: 80px 0 40px;
             border-top: 1px solid var(--card-border);
@@ -578,6 +576,7 @@
             font-weight: 600;
             text-decoration: none;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer; /* 커서 추가 */
         }
 
         .contact-btn:hover {
@@ -599,6 +598,7 @@
             align-items: center;
             gap: 8px;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         .contact-item:hover {
@@ -615,6 +615,30 @@
             border-top: 1px solid rgba(255,255,255,0.05);
             padding-top: 30px;
         }
+
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: rgba(59, 130, 246, 0.9);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 10000;
+            pointer-events: none;
+        }
+
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+            opacity: 1;
+        }
     </style>
 </head>
 <body>
@@ -622,6 +646,9 @@
     <!-- Spotlight Element -->
     <div class="spotlight" id="spotlight"></div>
     <div class="ambient-bg"></div>
+    
+    <!-- Toast Notification Element -->
+    <div class="toast" id="toast">이메일 주소가 복사되었습니다!</div>
 
     <!-- Navigation -->
     <header>
@@ -901,12 +928,14 @@
                 <div class="footer-cta-label">Vision to Reality</div>
                 <h2 class="footer-cta-title">내가 함께 꿈꾸던 모든 것,<br>현실로</h2>
                 
-                <a href="mailto:songdj12@gmail.com" class="contact-btn">
+                <!-- href는 유지하되, onclick 이벤트 추가 -->
+                <a href="mailto:songdj12@gmail.com" class="contact-btn" onclick="copyEmail(event)">
                     함께 시작하기 <i class="fas fa-arrow-right"></i>
                 </a>
 
                 <div class="contact-info-row">
-                    <div class="contact-item">
+                    <!-- 클릭 시 복사 기능 추가 -->
+                    <div class="contact-item" onclick="copyEmail(event)">
                         <i class="fas fa-envelope"></i> songdj12@gmail.com
                     </div>
                     <div class="contact-item">
@@ -971,6 +1000,37 @@
                 }
             });
         });
+
+        // Email Copy Function
+        function copyEmail(e) {
+            // mailto 링크의 기본 동작(메일 앱 열기)은 유지하면서 복사도 실행
+            // 만약 메일 앱 열기를 막고 싶다면 e.preventDefault(); 주석 해제
+            // e.preventDefault(); 
+            
+            const email = "songdj12@gmail.com";
+            
+            // Clipboard API 사용
+            navigator.clipboard.writeText(email).then(() => {
+                showToast();
+            }).catch(err => {
+                // 구형 브라우저 대응 (execCommand)
+                const textArea = document.createElement("textarea");
+                textArea.value = email;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
+                showToast();
+            });
+        }
+
+        function showToast() {
+            const toast = document.getElementById('toast');
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
     </script>
 </body>
 </html>
