@@ -74,6 +74,27 @@
             );
         }
 
+        /* Video Container Styles */
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border-radius: 16px;
+            background: #000;
+            margin-bottom: 20px;
+            border: 1px solid var(--card-border);
+        }
+
+        .video-wrapper iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
         /* Layout */
         .container {
             max-width: 1000px;
@@ -639,6 +660,41 @@
             transform: translateX(-50%) translateY(0);
             opacity: 1;
         }
+
+        /* Featured Work Updates */
+        section#featured {
+            padding-top: 20px;
+        }
+        
+        .video-content-box {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 15px 5px 0;
+        }
+
+        .award-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin: 6px 0 12px;
+            letter-spacing: -0.01em;
+        }
+        
+        .badge-grand {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-color);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+        }
+        
+        .badge-honorable {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
     </style>
 </head>
 <body>
@@ -763,9 +819,65 @@
                     </div>
                     <div class="award-item" style="flex-direction: column; gap: 4px; margin-top: 10px;">
                         <span class="item-name">Quiznos AI 영상 공모전 (2025)</span>
-                        <span style="color: var(--accent-color);">장려상 - "Quiznos Playlist"</span>
+                        <span style="color: var(--text-muted);">장려상 - "Quiznos Playlist"</span>
                     </div>
                 </div>
+            </div>
+        </section>
+
+        <!-- AI Creative Lab Section (Renamed from Featured Work) -->
+        <section id="featured">
+            <div style="margin-bottom: 2rem;">
+                <h2 style="margin-bottom: 0.5rem; font-size: 2rem;">AI Creative Lab</h2>
+                <p style="color: var(--text-muted); font-size: 1rem;">
+                    생성형 AI(Generative AI) 도구를 활용한 영상 콘텐츠 기획 및 제작 실험
+                </p>
+            </div>
+            
+            <div class="bento-grid">
+                
+                <!-- Video 1: Haru Yachae (Left) - 대상 -->
+                <div class="bento-card col-span-6">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/d9bodJRO_RY?rel=0" 
+                            title="하루야채 AI 광고" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-content-box">
+                        <h3 style="color: var(--text-main); font-size: 1.2rem; margin: 0;">한국야쿠르트 - 야채들이 싫어하는 회의</h3>
+                        <span class="award-pill badge-grand">대상 수상</span>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+                            기획부터 편집까지 생성형 AI(Midjourney, Runway, ElevenLabs)를 100% 활용하여 제작. 
+                            브랜드 메시지를 위트 있는 스토리텔링으로 풀어내어 대상을 수상했습니다.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Video 2: Quiznos (Right) - 장려상 -->
+                <div class="bento-card col-span-6">
+                    <div class="video-wrapper">
+                        <iframe 
+                            src="https://www.youtube.com/embed/0Cp4mJeq6Uc?rel=0" 
+                            title="Quiznos Playlist" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class="video-content-box">
+                        <h3 style="color: var(--text-main); font-size: 1.2rem; margin: 0;">퀴즈노스 - Quiznos Playlist</h3>
+                        <span class="award-pill badge-honorable">장려상 수상</span>
+                        <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.5;">
+                            퀴즈노스의 신선한 이미지를 감각적인 비주얼과 사운드 플레이리스트 형식으로 연출하여 
+                            장려상을 수상한 작품입니다.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
